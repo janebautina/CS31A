@@ -1,0 +1,380 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM books CROSS JOIN categories
+--------------
+
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+--------+-------------+
+| ISBN       | Title                          | PubDate    | PublisherID | Cost  | Price | Discount | CatgID | catgID | catgDesc    |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+--------+-------------+
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1483   | BUSINESS    |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1200   | CHILDREN    |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1877   | COMPUTER    |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1269   | COOKING     |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1774   | FAMILY LIFE |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1234   | FITNESS     |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1525   | LITERATURE  |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   | 1619   | SELF HELP   |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1483   | BUSINESS    |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1200   | CHILDREN    |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1877   | COMPUTER    |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1269   | COOKING     |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1774   | FAMILY LIFE |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1234   | FITNESS     |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1525   | LITERATURE  |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   | 1619   | SELF HELP   |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1483   | BUSINESS    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1200   | CHILDREN    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1877   | COMPUTER    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1269   | COOKING     |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1774   | FAMILY LIFE |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1234   | FITNESS     |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1525   | LITERATURE  |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   | 1619   | SELF HELP   |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1483   | BUSINESS    |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1200   | CHILDREN    |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1877   | COMPUTER    |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1269   | COOKING     |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1774   | FAMILY LIFE |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1234   | FITNESS     |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1525   | LITERATURE  |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   | 1619   | SELF HELP   |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1483   | BUSINESS    |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1200   | CHILDREN    |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1877   | COMPUTER    |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1269   | COOKING     |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1774   | FAMILY LIFE |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1234   | FITNESS     |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1525   | LITERATURE  |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   | 1619   | SELF HELP   |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1483   | BUSINESS    |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1200   | CHILDREN    |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1877   | COMPUTER    |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1269   | COOKING     |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1774   | FAMILY LIFE |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1234   | FITNESS     |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1525   | LITERATURE  |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   | 1619   | SELF HELP   |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1483   | BUSINESS    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1200   | CHILDREN    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1877   | COMPUTER    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1269   | COOKING     |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1774   | FAMILY LIFE |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1234   | FITNESS     |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1525   | LITERATURE  |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   | 1619   | SELF HELP   |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1483   | BUSINESS    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1200   | CHILDREN    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1877   | COMPUTER    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1269   | COOKING     |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1774   | FAMILY LIFE |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1234   | FITNESS     |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1525   | LITERATURE  |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   | 1619   | SELF HELP   |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1483   | BUSINESS    |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1200   | CHILDREN    |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1877   | COMPUTER    |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1269   | COOKING     |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1774   | FAMILY LIFE |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1234   | FITNESS     |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1525   | LITERATURE  |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   | 1619   | SELF HELP   |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1483   | BUSINESS    |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1200   | CHILDREN    |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1877   | COMPUTER    |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1269   | COOKING     |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1774   | FAMILY LIFE |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1234   | FITNESS     |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1525   | LITERATURE  |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   | 1619   | SELF HELP   |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1483   | BUSINESS    |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1200   | CHILDREN    |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1877   | COMPUTER    |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1269   | COOKING     |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1774   | FAMILY LIFE |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1234   | FITNESS     |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1525   | LITERATURE  |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   | 1619   | SELF HELP   |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1483   | BUSINESS    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1200   | CHILDREN    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1877   | COMPUTER    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1269   | COOKING     |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1774   | FAMILY LIFE |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1234   | FITNESS     |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1525   | LITERATURE  |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   | 1619   | SELF HELP   |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1483   | BUSINESS    |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1200   | CHILDREN    |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1877   | COMPUTER    |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1269   | COOKING     |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1774   | FAMILY LIFE |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1234   | FITNESS     |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1525   | LITERATURE  |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   | 1619   | SELF HELP   |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1483   | BUSINESS    |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1200   | CHILDREN    |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1877   | COMPUTER    |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1269   | COOKING     |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1774   | FAMILY LIFE |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1234   | FITNESS     |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1525   | LITERATURE  |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   | 1619   | SELF HELP   |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+--------+-------------+
+112 rows in set (0.11 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT e.LastName "Employee", e.EmployeeID "EmpID", m.LastName "Manager", m.EmployeeID "MgrID"  FROM employees e JOIN employees m  ON (e.MgrID=m.EmployeeID)
+--------------
+
++----------+-------+---------+-------+
+| Employee | EmpID | Manager | MgrID |
++----------+-------+---------+-------+
+| JONES    |  8888 | KING    |  7839 |
+| SMITH    |  7344 | KING    |  7839 |
+| POTTS    |  7355 | KING    |  7839 |
+| STUART   |  8844 | JONES   |  8888 |
++----------+-------+---------+-------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT e.LastName, e.hireDate from employees e JOIN  employees j ON (j.LastName = 'SMITH' and e.HireDate>j.HireDate)
+--------------
+
++----------+---------------------+
+| LastName | hireDate            |
++----------+---------------------+
+| JONES    | 1998-11-17 00:00:00 |
+| STUART   | 1998-11-17 00:00:00 |
++----------+---------------------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT b.title, d.contact, d.phone FROM  books b JOIN  publisher d ON (b.publisherID = d.publisherID)
+--------------
+
++--------------------------------+-----------------+--------------+
+| title                          | contact         | phone        |
++--------------------------------+-----------------+--------------+
+| REVENGE OF MICKEY              | TOMMIE SEYMOUR  | 000-714-8321 |
+| HOW TO MANAGE THE MANAGER      | TOMMIE SEYMOUR  | 000-714-8321 |
+| BUILDING A CAR WITH TOOTHPICKS | JANE TOMLIN     | 010-410-0010 |
+| E-BUSINESS THE EASY WAY        | JANE TOMLIN     | 010-410-0010 |
+| HANDCRANKED COMPUTERS          | DAVID DAVIDSON  | 800-555-1211 |
+| HOLY GRAIL OF ORACLE           | DAVID DAVIDSON  | 800-555-1211 |
+| DATABASE IMPLEMENTATION        | DAVID DAVIDSON  | 800-555-1211 |
+| HOW TO GET FASTER PIZZA        | RENEE SMITH     | 800-555-9743 |
+| THE WOK WAY TO COOK            | RENEE SMITH     | 800-555-9743 |
+| BODYBUILD IN 10 MINUTES A DAY  | RENEE SMITH     | 800-555-9743 |
+| COOKING WITH MUSHROOMS         | RENEE SMITH     | 800-555-9743 |
+| SHORTEST POEMS                 | SEBASTIAN JONES | 800-555-8284 |
+| PAINLESS CHILD-REARING         | SEBASTIAN JONES | 800-555-8284 |
+| BIG BEAR AND LITTLE DOVE       | SEBASTIAN JONES | 800-555-8284 |
++--------------------------------+-----------------+--------------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 05
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT c.FirstName, c.LastName, o.OrderID FROM customers c JOIN orders o USING(CustomerID) WHERE o.ShipDate IS NULL ORDER BY o.OrderDate
+--------------
+
++-----------+----------+---------+
+| FirstName | LastName | OrderID |
++-----------+----------+---------+
+| BECCA     | NELSON   |    1012 |
+| LEILA     | SMITH    |    1016 |
+| KENNETH   | FALAH    |    1015 |
+| BONITA    | MORALES  |    1018 |
+| GREG      | MONTIASA |    1019 |
+| KENNETH   | JONES    |    1020 |
++-----------+----------+---------+
+6 rows in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT c.FirstName, c.LastName, od.ISBN, b.Title FROM customers c JOIN orders o ON c.CustomerID=o.CustomerID JOIN OrderDetails od ON od.OrderID = o.OrderID JOIN books b ON od.ISBN = b.ISBN ORDER BY c.LastName DESC, c.FirstName DESC, b.ISBN DESC
+--------------
+
++-----------+----------+------------+-------------------------------+
+| FirstName | LastName | ISBN       | Title                         |
++-----------+----------+------------+-------------------------------+
+| LEILA     | SMITH    | 9959789321 | E-BUSINESS THE EASY WAY       |
+| LEILA     | SMITH    | 2491748320 | PAINLESS CHILD-REARING        |
+| JENNIFER  | SMITH    | 8843172113 | DATABASE IMPLEMENTATION       |
+| STEVE     | SCHELL   | 8117949391 | BIG BEAR AND LITTLE DOVE      |
+| THOMAS    | PIERSON  | 3437212490 | COOKING WITH MUSHROOMS        |
+| BECCA     | NELSON   | 8117949391 | BIG BEAR AND LITTLE DOVE      |
+| BECCA     | NELSON   | 2491748320 | PAINLESS CHILD-REARING        |
+| BECCA     | NELSON   | 1915762492 | HANDCRANKED COMPUTERS         |
+| BECCA     | NELSON   | 0401140733 | REVENGE OF MICKEY             |
+| BONITA    | MORALES  | 8843172113 | DATABASE IMPLEMENTATION       |
+| BONITA    | MORALES  | 8843172113 | DATABASE IMPLEMENTATION       |
+| BONITA    | MORALES  | 3437212490 | COOKING WITH MUSHROOMS        |
+| BONITA    | MORALES  | 3437212490 | COOKING WITH MUSHROOMS        |
+| BONITA    | MORALES  | 1059831198 | BODYBUILD IN 10 MINUTES A DAY |
+| GREG      | MONTIASA | 2147428890 | SHORTEST POEMS                |
+| GREG      | MONTIASA | 0401140733 | REVENGE OF MICKEY             |
+| REESE     | MCGOVERN | 8843172113 | DATABASE IMPLEMENTATION       |
+| JAKE      | LUCAS    | 9247381001 | HOW TO MANAGE THE MANAGER     |
+| JAKE      | LUCAS    | 2491748320 | PAINLESS CHILD-REARING        |
+| JAKE      | LUCAS    | 2491748320 | PAINLESS CHILD-REARING        |
+| JASMINE   | LEE      | 8843172113 | DATABASE IMPLEMENTATION       |
+| KENNETH   | JONES    | 3437212490 | COOKING WITH MUSHROOMS        |
+| CINDY     | GIRARD   | 3437212490 | COOKING WITH MUSHROOMS        |
+| CINDY     | GIRARD   | 3437212490 | COOKING WITH MUSHROOMS        |
+| CINDY     | GIRARD   | 0401140733 | REVENGE OF MICKEY             |
+| TAMMY     | GIANA    | 9959789321 | E-BUSINESS THE EASY WAY       |
+| TAMMY     | GIANA    | 8843172113 | DATABASE IMPLEMENTATION       |
+| TAMMY     | GIANA    | 8117949391 | BIG BEAR AND LITTLE DOVE      |
+| TAMMY     | GIANA    | 3957136468 | HOLY GRAIL OF ORACLE          |
+| TAMMY     | GIANA    | 0401140733 | REVENGE OF MICKEY             |
+| KENNETH   | FALAH    | 3437212490 | COOKING WITH MUSHROOMS        |
+| KENNETH   | FALAH    | 2491748320 | PAINLESS CHILD-REARING        |
++-----------+----------+------------+-------------------------------+
+32 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT c.* FROM customers c JOIN orders o ON c.CustomerID=o.CustomerID JOIN orderdetails od ON o.OrderID = od.OrderID JOIN books b ON od.ISBN = b.ISBN WHERE c.State = 'FL' AND b.CatgID=1877
+--------------
+
++------------+----------+-----------+--------------+-----------+-------+-------+
+| CustomerID | LastName | FirstName | Address      | City      | State | Zip   |
++------------+----------+-----------+--------------+-----------+-------+-------+
+|       1001 | MORALES  | BONITA    | P.O. BOX 651 | EASTPOINT | FL    | 32328 |
+|       1001 | MORALES  | BONITA    | P.O. BOX 651 | EASTPOINT | FL    | 32328 |
++------------+----------+-----------+--------------+-----------+-------+-------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT b.* FROM books b JOIN bookauthor ba ON b.ISBN =ba.ISBN JOIN author a ON a.AuthorID = ba.authorID WHERE a.LastName='ADAMS'
+--------------
+
++------------+-------------------------+------------+-------------+-------+-------+----------+--------+
+| ISBN       | Title                   | PubDate    | PublisherID | Cost  | Price | Discount | CatgID |
++------------+-------------------------+------------+-------------+-------+-------+----------+--------+
+| 8843172113 | DATABASE IMPLEMENTATION | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |
++------------+-------------------------+------------+-------------+-------+-------+----------+--------+
+1 row in set (0.01 sec)
+
+--------------
+#query 09
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT b.*, o.orderid, c.state FROM books b LEFT OUTER JOIN orderdetails od ON b.isbn = od.isbn LEFT OUTER JOIN orders o ON o.orderid = od.orderid LEFT OUTER JOIN customers c ON c.customerid = o.customerid
+--------------
+
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+---------+-------+
+| ISBN       | Title                          | PubDate    | PublisherID | Cost  | Price | Discount | CatgID | orderid | state |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+---------+-------+
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   |    NULL | NULL  |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   |    NULL | NULL  |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |    1009 | WA    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |    1012 | MI    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |    1014 | TX    |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |    1019 | GA    |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   |    1003 | FL    |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   |    1012 | MI    |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   |    1005 | GA    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |    1001 | GA    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |    1004 | NJ    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |    1011 | GA    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |    1012 | MI    |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |    1016 | FL    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1000 | WA    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1003 | FL    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1008 | ID    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1009 | WA    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1015 | NJ    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1018 | FL    |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |    1020 | WY    |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   |    1007 | TX    |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   |    NULL | NULL  |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |    1007 | TX    |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |    1012 | MI    |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |    1017 | FL    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1002 | IL    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1003 | FL    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1007 | TX    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1010 | NJ    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1013 | WY    |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |    1018 | FL    |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   |    1001 | GA    |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   |    1006 | FL    |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   |    1007 | TX    |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+---------+-------+
+35 rows in set (0.00 sec)
+
+--------------
+#query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT e.firstname, e.LastName as 'Employee Name', e.job, s.firstname, s.LastName as 'Manager Name'  FROM employees e LEFT OUTER JOIN  employees s ON e.mgrId=s.employeeId order by s.firstname, s.lastname
+--------------
+
++-----------+---------------+--------+-----------+--------------+
+| firstname | Employee Name | job    | firstname | Manager Name |
++-----------+---------------+--------+-----------+--------------+
+| BEN       | KING          | GTECH2 | NULL      | NULL         |
+| JIM       | POTTS         | GTech1 | BEN       | KING         |
+| LARRY     | JONES         | MTech2 | BEN       | KING         |
+| SAM       | SMITH         | GTech1 | BEN       | KING         |
+| SUE       | STUART        | MTech1 | LARRY     | JONES        |
++-----------+---------------+--------+-----------+--------------+
+5 rows in set (0.00 sec)
+
+Bye
