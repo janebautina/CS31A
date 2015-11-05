@@ -1,0 +1,197 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE OR REPLACE VIEW cheap_books AS SELECT * FROM books WHERE Price<25
+--------------
+
+Query OK, 0 rows affected (0.02 sec)
+
+--------------
+SELECT * FROM cheap_books
+--------------
+
++------------+--------------------------+------------+-------------+-------+-------+----------+--------+
+| ISBN       | Title                    | PubDate    | PublisherID | Cost  | Price | Discount | CatgID |
++------------+--------------------------+------------+-------------+-------+-------+----------+--------+
+| 0401140733 | REVENGE OF MICKEY        | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |
+| 3437212490 | COOKING WITH MUSHROOMS   | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |
+| 8117949391 | BIG BEAR AND LITTLE DOVE | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |
++------------+--------------------------+------------+-------------+-------+-------+----------+--------+
+3 rows in set (0.00 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE OR REPLACE VIEW  contact_view AS SELECT Contact, Phone FROM Publisher
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+SELECT * FROM contact_view
+--------------
+
++-----------------+--------------+
+| Contact         | Phone        |
++-----------------+--------------+
+| TOMMIE SEYMOUR  | 000-714-8321 |
+| JANE TOMLIN     | 010-410-0010 |
+| DAVID DAVIDSON  | 800-555-1211 |
+| RENEE SMITH     | 800-555-9743 |
+| SEBASTIAN JONES | 800-555-8284 |
++-----------------+--------------+
+5 rows in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE OR REPLACE VIEW  contact_view AS SELECT Contact, Phone FROM Publisher WITH CHECK OPTION
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+DESCRIBE contact_view
+--------------
+
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Contact | varchar(15) | YES  |     | NULL    |       |
+| Phone   | varchar(12) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE OR REPLACE VIEW  book_average AS SELECT catgid, AVG(price) FROM BOOKS WHERE Price<30 GROUP BY catgID HAVING AVG(Price)>13
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+SELECT * FROM book_average
+--------------
+
++--------+------------+
+| catgid | AVG(price) |
++--------+------------+
+| 1269   |  24.350000 |
+| 1619   |  29.950000 |
+| 1774   |  22.000000 |
+| 1877   |  25.000000 |
++--------+------------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 05
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+CREATE OR REPLACE VIEW  reorderinfo AS SELECT b.ISBN, b.Title, p.contact, p.phone  FROM books b, publisher p WHERE b.publisherID=p.publisherID
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM reorderinfo
+--------------
+
++------------+--------------------------------+-----------------+--------------+
+| ISBN       | Title                          | contact         | phone        |
++------------+--------------------------------+-----------------+--------------+
+| 0401140733 | REVENGE OF MICKEY              | TOMMIE SEYMOUR  | 000-714-8321 |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | TOMMIE SEYMOUR  | 000-714-8321 |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | JANE TOMLIN     | 010-410-0010 |
+| 9959789321 | E-BUSINESS THE EASY WAY        | JANE TOMLIN     | 010-410-0010 |
+| 1915762492 | HANDCRANKED COMPUTERS          | DAVID DAVIDSON  | 800-555-1211 |
+| 3957136468 | HOLY GRAIL OF ORACLE           | DAVID DAVIDSON  | 800-555-1211 |
+| 8843172113 | DATABASE IMPLEMENTATION        | DAVID DAVIDSON  | 800-555-1211 |
+| 0132149871 | HOW TO GET FASTER PIZZA        | RENEE SMITH     | 800-555-9743 |
+| 0299282519 | THE WOK WAY TO COOK            | RENEE SMITH     | 800-555-9743 |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | RENEE SMITH     | 800-555-9743 |
+| 3437212490 | COOKING WITH MUSHROOMS         | RENEE SMITH     | 800-555-9743 |
+| 2147428890 | SHORTEST POEMS                 | SEBASTIAN JONES | 800-555-8284 |
+| 2491748320 | PAINLESS CHILD-REARING         | SEBASTIAN JONES | 800-555-8284 |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | SEBASTIAN JONES | 800-555-8284 |
++------------+--------------------------------+-----------------+--------------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE OR REPLACE VIEW salary_view  (EmpLastName, EmpFirstName, EmpSalary) AS SELECT LastName, FirstName, Salary FROM employees
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+SELECT * FROM salary_view WHERE EmpSalary>=4000
+--------------
+
++-------------+--------------+-----------+
+| EmpLastName | EmpFirstName | EmpSalary |
++-------------+--------------+-----------+
+| KING        | BEN          |   6000.00 |
+| JONES       | LARRY        |   4200.00 |
+| SMITH       | SAM          |   4900.00 |
+| POTTS       | JIM          |   4900.00 |
++-------------+--------------+-----------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE INDEX i_customers_last_name ON customers(LastName)
+--------------
+
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+ALTER TABLE customers DROP INDEX i_customers_last_name
+--------------
+
+Query OK, 20 rows affected (0.02 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+Bye
