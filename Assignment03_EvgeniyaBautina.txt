@@ -1,0 +1,321 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select * from books
+--------------
+
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+| ISBN       | Title                          | PubDate    | PublisherID | Cost  | Price | Discount | CatgID |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   |
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select CustomerID, FirstName, LastName, address,city from customers
+--------------
+
++------------+-----------+----------+----------------------+--------------+
+| CustomerID | FirstName | LastName | address              | city         |
++------------+-----------+----------+----------------------+--------------+
+|       1001 | BONITA    | MORALES  | P.O. BOX 651         | EASTPOINT    |
+|       1002 | RYAN      | THOMPSON | P.O. BOX 9835        | SANTA MONICA |
+|       1003 | LEILA     | SMITH    | P.O. BOX 66          | TALLAHASSEE  |
+|       1004 | THOMAS    | PIERSON  | 69821 SOUTH AVENUE   | BOISE        |
+|       1005 | CINDY     | GIRARD   | P.O. BOX 851         | SEATTLE      |
+|       1006 | MESHIA    | CRUZ     | 82 DIRT ROAD         | ALBANY       |
+|       1007 | TAMMY     | GIANA    | 9153 MAIN STREET     | AUSTIN       |
+|       1008 | KENNETH   | JONES    | P.O. BOX 137         | CHEYENNE     |
+|       1009 | JORGE     | PEREZ    | P.O. BOX 8564        | BURBANK      |
+|       1010 | JAKE      | LUCAS    | 114 EAST SAVANNAH    | ATLANTA      |
+|       1011 | REESE     | MCGOVERN | P.O. BOX 18          | CHICAGO      |
+|       1012 | WILLIAM   | MCKENZIE | P.O. BOX 971         | BOSTON       |
+|       1013 | NICHOLAS  | NGUYEN   | 357 WHITE EAGLE AVE. | CLERMONT     |
+|       1014 | JASMINE   | LEE      | P.O. BOX 2947        | CODY         |
+|       1015 | STEVE     | SCHELL   | P.O. BOX 677         | MIAMI        |
+|       1016 | MICHELL   | DAUM     | 9851231 LONG ROAD    | BURBANK      |
+|       1017 | BECCA     | NELSON   | P.O. BOX 563         | KALMAZOO     |
+|       1018 | GREG      | MONTIASA | 1008 GRAND AVENUE    | MACON        |
+|       1019 | JENNIFER  | SMITH    | P.O. BOX 1151        | MORRISTOWN   |
+|       1020 | KENNETH   | FALAH    | P.O. BOX 335         | TRENTON      |
++------------+-----------+----------+----------------------+--------------+
+20 rows in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select publisherID, Name, Contact, phone from publisher
+--------------
+
++-------------+------------------------+-----------------+--------------+
+| publisherID | Name                   | Contact         | phone        |
++-------------+------------------------+-----------------+--------------+
+|           1 | PRINTING IS US         | TOMMIE SEYMOUR  | 000-714-8321 |
+|           2 | PUBLISH OUR WAY        | JANE TOMLIN     | 010-410-0010 |
+|           3 | AMERICAN PUBLISHING    | DAVID DAVIDSON  | 800-555-1211 |
+|           4 | READING MATERIALS INC. | RENEE SMITH     | 800-555-9743 |
+|           5 | REED-N-RITE            | SEBASTIAN JONES | 800-555-8284 |
++-------------+------------------------+-----------------+--------------+
+5 rows in set (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select EmployeeID, LastName, FirstName, Job from employees order by FirstName, salary
+--------------
+
++------------+----------+-----------+--------+
+| EmployeeID | LastName | FirstName | Job    |
++------------+----------+-----------+--------+
+|       7839 | KING     | BEN       | GTECH2 |
+|       7355 | POTTS    | JIM       | GTech1 |
+|       8888 | JONES    | LARRY     | MTech2 |
+|       7344 | SMITH    | SAM       | GTech1 |
+|       8844 | STUART   | SUE       | MTech1 |
++------------+----------+-----------+--------+
+5 rows in set (0.00 sec)
+
+--------------
+#query 05
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select title, price+2 from books
+--------------
+
++--------------------------------+---------+
+| title                          | price+2 |
++--------------------------------+---------+
+| HOW TO GET FASTER PIZZA        |   31.95 |
+| THE WOK WAY TO COOK            |   30.75 |
+| REVENGE OF MICKEY              |   24.00 |
+| BODYBUILD IN 10 MINUTES A DAY  |   32.95 |
+| HANDCRANKED COMPUTERS          |   27.00 |
+| SHORTEST POEMS                 |   41.95 |
+| PAINLESS CHILD-REARING         |   91.95 |
+| COOKING WITH MUSHROOMS         |   21.95 |
+| HOLY GRAIL OF ORACLE           |   77.95 |
+| BUILDING A CAR WITH TOOTHPICKS |   61.95 |
+| BIG BEAR AND LITTLE DOVE       |   10.95 |
+| DATABASE IMPLEMENTATION        |   57.95 |
+| HOW TO MANAGE THE MANAGER      |   33.95 |
+| E-BUSINESS THE EASY WAY        |   56.50 |
++--------------------------------+---------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select DISTINCT CustomerID from orders
+--------------
+
++------------+
+| CustomerID |
++------------+
+|       1001 |
+|       1003 |
+|       1004 |
+|       1005 |
+|       1007 |
+|       1008 |
+|       1010 |
+|       1011 |
+|       1014 |
+|       1015 |
+|       1017 |
+|       1018 |
+|       1019 |
+|       1020 |
++------------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select * from books ORDER BY title DESC
+--------------
+
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+| ISBN       | Title                          | PubDate    | PublisherID | Cost  | Price | Discount | CatgID |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+| 0299282519 | THE WOK WAY TO COOK            | 2011-09-04 |           4 | 19.00 | 28.75 |     NULL | 1269   |
+| 2147428890 | SHORTEST POEMS                 | 2001-05-05 |           5 | 21.85 | 39.95 |     NULL | 1525   |
+| 0401140733 | REVENGE OF MICKEY              | 2014-12-05 |           1 | 14.20 | 22.00 |     NULL | 1774   |
+| 2491748320 | PAINLESS CHILD-REARING         | 2017-07-04 |           5 | 48.00 | 89.95 |     4.50 | 1774   |
+| 9247381001 | HOW TO MANAGE THE MANAGER      | 2009-05-03 |           1 | 15.40 | 31.95 |     NULL | 1483   |
+| 0132149871 | HOW TO GET FASTER PIZZA        | 2011-11-06 |           4 | 17.85 | 29.95 |     1.50 | 1619   |
+| 3957136468 | HOLY GRAIL OF ORACLE           | 2031-12-05 |           3 | 47.25 | 75.95 |     3.80 | 1877   |
+| 1915762492 | HANDCRANKED COMPUTERS          | 2021-01-05 |           3 | 21.80 | 25.00 |     NULL | 1877   |
+| 9959789321 | E-BUSINESS THE EASY WAY        | 2001-03-06 |           2 | 37.90 | 54.50 |     NULL | 1483   |
+| 8843172113 | DATABASE IMPLEMENTATION        | 2004-06-03 |           3 | 31.40 | 55.95 |     NULL | 1877   |
+| 3437212490 | COOKING WITH MUSHROOMS         | 2028-02-04 |           4 | 12.50 | 19.95 |     NULL | 1269   |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS | 2018-03-06 |           2 | 37.80 | 59.95 |     3.00 | 1200   |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY  | 2021-01-05 |           4 | 18.75 | 30.95 |     NULL | 1234   |
+| 8117949391 | BIG BEAR AND LITTLE DOVE       | 2008-11-05 |           5 |  5.32 |  8.95 |     NULL | 1200   |
++------------+--------------------------------+------------+-------------+-------+-------+----------+--------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select concat(LastName ,',',' ',FirstName,' ', Address) as " customer name and address" from customers
+--------------
+
++---------------------------------------+
+| customer name and address             |
++---------------------------------------+
+| MORALES, BONITA P.O. BOX 651          |
+| THOMPSON, RYAN P.O. BOX 9835          |
+| SMITH, LEILA P.O. BOX 66              |
+| PIERSON, THOMAS 69821 SOUTH AVENUE    |
+| GIRARD, CINDY P.O. BOX 851            |
+| CRUZ, MESHIA 82 DIRT ROAD             |
+| GIANA, TAMMY 9153 MAIN STREET         |
+| JONES, KENNETH P.O. BOX 137           |
+| PEREZ, JORGE P.O. BOX 8564            |
+| LUCAS, JAKE 114 EAST SAVANNAH         |
+| MCGOVERN, REESE P.O. BOX 18           |
+| MCKENZIE, WILLIAM P.O. BOX 971        |
+| NGUYEN, NICHOLAS 357 WHITE EAGLE AVE. |
+| LEE, JASMINE P.O. BOX 2947            |
+| SCHELL, STEVE P.O. BOX 677            |
+| DAUM, MICHELL 9851231 LONG ROAD       |
+| NELSON, BECCA P.O. BOX 563            |
+| MONTIASA, GREG 1008 GRAND AVENUE      |
+| SMITH, JENNIFER P.O. BOX 1151         |
+| FALAH, KENNETH P.O. BOX 335           |
++---------------------------------------+
+20 rows in set, 1 warning (0.00 sec)
+
+--------------
+#query 09
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+insert into customers (CustomerID, LastName, FirstName, Address, City, State, Zip) values (1021,'Brown', 'Fred','200 Edgewater Blvd', 'San Mateo','CA','94403')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+#query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+update customers set LastName='Orange' where CustomerID=1002
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+#query 11
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+update books set price = price * 1.2 where price = 25.00
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+#query 12
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+delete from employees where EmployeeID = 7839
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+#query 13
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select catgID, title from books order by catgID, title DESC
+--------------
+
++--------+--------------------------------+
+| catgID | title                          |
++--------+--------------------------------+
+| 1200   | BUILDING A CAR WITH TOOTHPICKS |
+| 1200   | BIG BEAR AND LITTLE DOVE       |
+| 1234   | BODYBUILD IN 10 MINUTES A DAY  |
+| 1269   | THE WOK WAY TO COOK            |
+| 1269   | COOKING WITH MUSHROOMS         |
+| 1483   | HOW TO MANAGE THE MANAGER      |
+| 1483   | E-BUSINESS THE EASY WAY        |
+| 1525   | SHORTEST POEMS                 |
+| 1619   | HOW TO GET FASTER PIZZA        |
+| 1774   | REVENGE OF MICKEY              |
+| 1774   | PAINLESS CHILD-REARING         |
+| 1877   | HOLY GRAIL OF ORACLE           |
+| 1877   | HANDCRANKED COMPUTERS          |
+| 1877   | DATABASE IMPLEMENTATION        |
++--------+--------------------------------+
+14 rows in set (0.00 sec)
+
+Bye
