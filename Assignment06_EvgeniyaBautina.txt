@@ -1,0 +1,268 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT COUNT(*) FROM books WHERE Price>12.00
+--------------
+
++----------+
+| COUNT(*) |
++----------+
+|       13 |
++----------+
+1 row in set (0.00 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT AVG(Price) FROM books
+--------------
+
++------------+
+| AVG(Price) |
++------------+
+|  40.982143 |
++------------+
+1 row in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT COUNT(DISTINCT PublisherID) FROM books
+--------------
+
++-----------------------------+
+| COUNT(DISTINCT PublisherID) |
++-----------------------------+
+|                           5 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT MIN(Price), MAX(Price) FROM books
+--------------
+
++------------+------------+
+| MIN(Price) | MAX(Price) |
++------------+------------+
+|       8.95 |      89.95 |
++------------+------------+
+1 row in set (0.00 sec)
+
+--------------
+#guery 05
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT MIN(PubDate) FROM books
+--------------
+
++--------------+
+| MIN(PubDate) |
++--------------+
+| 2001-03-06   |
++--------------+
+1 row in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT CatgID, AVG(Cost) FROM books GROUP BY CatgID
+--------------
+
++--------+-----------+
+| CatgID | AVG(Cost) |
++--------+-----------+
+| 1200   | 21.560000 |
+| 1234   | 18.750000 |
+| 1269   | 15.750000 |
+| 1483   | 26.650000 |
+| 1525   | 21.850000 |
+| 1619   | 17.850000 |
+| 1774   | 31.100000 |
+| 1877   | 33.483333 |
++--------+-----------+
+8 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT CatgID  FROM books GROUP BY CatgID HAVING AVG(Price)>20.00
+--------------
+
++--------+
+| CatgID |
++--------+
+| 1200   |
+| 1234   |
+| 1269   |
+| 1483   |
+| 1525   |
+| 1619   |
+| 1774   |
+| 1877   |
++--------+
+8 rows in set (0.00 sec)
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT catgID, AVG(price) FROM books WHERE Price<40.00 GROUP BY catgID HAVING AVG(Price)>10.00
+--------------
+
++--------+------------+
+| catgID | AVG(price) |
++--------+------------+
+| 1234   |  30.950000 |
+| 1269   |  24.350000 |
+| 1483   |  31.950000 |
+| 1525   |  39.950000 |
+| 1619   |  29.950000 |
+| 1774   |  22.000000 |
+| 1877   |  25.000000 |
++--------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+#query 09
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT customerID, COUNT(*) FROM orders GROUP BY customerID
+--------------
+
++------------+----------+
+| customerID | COUNT(*) |
++------------+----------+
+|       1001 |        2 |
+|       1003 |        2 |
+|       1004 |        1 |
+|       1005 |        2 |
+|       1007 |        2 |
+|       1008 |        1 |
+|       1010 |        2 |
+|       1011 |        1 |
+|       1014 |        1 |
+|       1015 |        1 |
+|       1017 |        1 |
+|       1018 |        2 |
+|       1019 |        1 |
+|       1020 |        2 |
++------------+----------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT deptID, COUNT(*), ROUND(AVG(salary),3) FROM employees GROUP BY deptID
+--------------
+
++--------+----------+----------------------+
+| deptID | COUNT(*) | ROUND(AVG(salary),3) |
++--------+----------+----------------------+
+|     10 |        3 |             4633.333 |
+|     20 |        2 |             4900.000 |
++--------+----------+----------------------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 11
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT b.Price FROM books b, author a, bookauthor ba Where a.authorID = ba.authorID AND b.ISBN = ba.ISBN AND a.FirstName = 'SAM' AND a.LastName = 'Smith' GROUP BY b.ISBN ORDER BY price DESC LIMIT 1
+--------------
+
++-------+
+| Price |
++-------+
+| 30.95 |
++-------+
+1 row in set (0.01 sec)
+
+--------------
+#query 12
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT Job, COUNT(*) from employees GROUP BY Job
+--------------
+
++--------+----------+
+| Job    | COUNT(*) |
++--------+----------+
+| GTech1 |        2 |
+| GTECH2 |        1 |
+| MTech1 |        1 |
+| MTech2 |        1 |
++--------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 13
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+select od.orderid, c. firstname, c.lastname from customers c, orders o, orderdetails od where o.orderid = od.orderid and o.customerID=c.customerid and (c.State='FL' OR c.state = 'GA') GROUP BY od.orderID HAVING SUM(od.paidEach)>80.00
+--------------
+
++---------+-----------+----------+
+| orderid | firstname | lastname |
++---------+-----------+----------+
+|    1001 | JAKE      | LUCAS    |
+|    1003 | BONITA    | MORALES  |
+|    1011 | JAKE      | LUCAS    |
+|    1016 | LEILA     | SMITH    |
++---------+-----------+----------+
+4 rows in set (0.00 sec)
+
+Bye
