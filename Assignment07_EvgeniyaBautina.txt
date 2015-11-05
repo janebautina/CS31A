@@ -1,0 +1,254 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT lastname, firstname FROM (SELECT * FROM customers WHERE lastname='Jones') lnJones
+--------------
+
++----------+-----------+
+| lastname | firstname |
++----------+-----------+
+| JONES    | KENNETH   |
++----------+-----------+
+1 row in set (0.00 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SElECT ISBN, price, title  FROM books WHERE price>(SELECT AVG(price) FROM books)
+--------------
+
++------------+-------+--------------------------------+
+| ISBN       | price | title                          |
++------------+-------+--------------------------------+
+| 2491748320 | 89.95 | PAINLESS CHILD-REARING         |
+| 3957136468 | 75.95 | HOLY GRAIL OF ORACLE           |
+| 4981341710 | 59.95 | BUILDING A CAR WITH TOOTHPICKS |
+| 8843172113 | 55.95 | DATABASE IMPLEMENTATION        |
+| 9959789321 | 54.50 | E-BUSINESS THE EASY WAY        |
++------------+-------+--------------------------------+
+5 rows in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT OrderID, shipstate FROM orders WHERE shipstate = (SELECT shipstate FROM orders WHERE orderID=1014)
+--------------
+
++---------+-----------+
+| OrderID | shipstate |
++---------+-----------+
+|    1007 | TX        |
+|    1014 | TX        |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ShipCity, ShipState FROM orders WHERE (ShipDate-OrderDate)=(Select MAX(ShipDate-OrderDate) from orders)
+--------------
+
++----------+-----------+
+| ShipCity | ShipState |
++----------+-----------+
+| MACON    | GA        |
++----------+-----------+
+1 row in set (0.00 sec)
+
+--------------
+#query 05
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ISBN, Price, (SELECT COUNT(Quantity) FROM orderdetails WHERE books.ISBN=orderdetails.ISBN) AS book_count FROM books
+--------------
+
++------------+-------+------------+
+| ISBN       | Price | book_count |
++------------+-------+------------+
+| 0132149871 | 29.95 |          0 |
+| 0299282519 | 28.75 |          0 |
+| 0401140733 | 22.00 |          4 |
+| 1059831198 | 30.95 |          1 |
+| 1915762492 | 25.00 |          1 |
+| 2147428890 | 39.95 |          1 |
+| 2491748320 | 89.95 |          5 |
+| 3437212490 | 19.95 |          7 |
+| 3957136468 | 75.95 |          1 |
+| 4981341710 | 59.95 |          0 |
+| 8117949391 |  8.95 |          3 |
+| 8843172113 | 55.95 |          6 |
+| 9247381001 | 31.95 |          1 |
+| 9959789321 | 54.50 |          2 |
++------------+-------+------------+
+14 rows in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ISBN, Title FROM books WHERE Title IN (SELECT Title FROM books WHERE title Like  "%e%")
+--------------
+
++------------+-------------------------------+
+| ISBN       | Title                         |
++------------+-------------------------------+
+| 0132149871 | HOW TO GET FASTER PIZZA       |
+| 0299282519 | THE WOK WAY TO COOK           |
+| 0401140733 | REVENGE OF MICKEY             |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY |
+| 1915762492 | HANDCRANKED COMPUTERS         |
+| 2147428890 | SHORTEST POEMS                |
+| 2491748320 | PAINLESS CHILD-REARING        |
+| 3957136468 | HOLY GRAIL OF ORACLE          |
+| 8117949391 | BIG BEAR AND LITTLE DOVE      |
+| 8843172113 | DATABASE IMPLEMENTATION       |
+| 9247381001 | HOW TO MANAGE THE MANAGER     |
+| 9959789321 | E-BUSINESS THE EASY WAY       |
++------------+-------------------------------+
+12 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ISBN, Title FROM books WHERE ISBN NOT IN (SELECT od.ISBN FROM orderdetails od, orders o  WHERE o.OrderID=od.orderID)
+--------------
+
++------------+--------------------------------+
+| ISBN       | Title                          |
++------------+--------------------------------+
+| 0132149871 | HOW TO GET FASTER PIZZA        |
+| 0299282519 | THE WOK WAY TO COOK            |
+| 4981341710 | BUILDING A CAR WITH TOOTHPICKS |
++------------+--------------------------------+
+3 rows in set (0.00 sec)
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT b.ISBN, b.catgID,b.Title, b.Price FROM books b  WHERE Price>=(SELECT AVG(Price) FROM books WHERE catgID=b.catgID GROUP BY catgID)
+--------------
+
++------------+--------+--------------------------------+-------+
+| ISBN       | catgID | Title                          | Price |
++------------+--------+--------------------------------+-------+
+| 0132149871 | 1619   | HOW TO GET FASTER PIZZA        | 29.95 |
+| 0299282519 | 1269   | THE WOK WAY TO COOK            | 28.75 |
+| 1059831198 | 1234   | BODYBUILD IN 10 MINUTES A DAY  | 30.95 |
+| 2147428890 | 1525   | SHORTEST POEMS                 | 39.95 |
+| 2491748320 | 1774   | PAINLESS CHILD-REARING         | 89.95 |
+| 3957136468 | 1877   | HOLY GRAIL OF ORACLE           | 75.95 |
+| 4981341710 | 1200   | BUILDING A CAR WITH TOOTHPICKS | 59.95 |
+| 8843172113 | 1877   | DATABASE IMPLEMENTATION        | 55.95 |
+| 9959789321 | 1483   | E-BUSINESS THE EASY WAY        | 54.50 |
++------------+--------+--------------------------------+-------+
+9 rows in set (0.01 sec)
+
+--------------
+#query 09
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT o.customerID  FROM customers c, orders o, orderdetails od, books b  WHERE o.OrderId =od.OrderID AND b.ISBN=od.ISBN AND o.customerID=c.customerID AND b.Price = (SELECT MIN(Price) FROM books)
+--------------
+
++------------+
+| customerID |
++------------+
+|       1007 |
+|       1015 |
+|       1017 |
++------------+
+3 rows in set (0.00 sec)
+
+--------------
+#query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT employeeID, lastname FROM employees WHERE employeeId IN (SELECT MgrID FROM employees)
+--------------
+
++------------+----------+
+| employeeID | lastname |
++------------+----------+
+|       7839 | KING     |
+|       8888 | JONES    |
++------------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 11
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT Title, PubDate, CURRENT_DATE from books WHERE PublisherID=(SELECT PublisherID From books where title="THE WOK WAY TO COOK") AND PubDate<CURRENT_DATE()
+--------------
+
++-------------------------+------------+--------------+
+| Title                   | PubDate    | CURRENT_DATE |
++-------------------------+------------+--------------+
+| HOW TO GET FASTER PIZZA | 2011-11-06 | 2015-02-19   |
+| THE WOK WAY TO COOK     | 2011-09-04 | 2015-02-19   |
++-------------------------+------------+--------------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 12
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT COUNT(DISTINCT CustomerID) FROM orders WHERE ORDERID IN(SELECT OrderID FROM ORDERDETAILS WHERE ISBN IN (SELECT ISBN FROM bookauthor WHERE authorID = (SELECT authorID FROM author WHERE LastName="AUSTIN" AND FirstName ="JAMES")))
+--------------
+
++----------------------------+
+| COUNT(DISTINCT CustomerID) |
++----------------------------+
+|                          5 |
++----------------------------+
+1 row in set (0.00 sec)
+
+Bye
