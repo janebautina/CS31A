@@ -1,0 +1,76 @@
+#Evgeniya Bautina
+mysql>use studentdb;
+mysql> SHOW TABLES; #display the names of the tables in studentdb, query 01
++---------------------+
+| Tables_in_studentdb |
++---------------------+
+| student             |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> DESC student; #show the structure of the student table, query 02
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| ID        | varchar(5)   | NO   | PRI |         |       |
+| name      | varchar(20)  | NO   |     | NULL    |       |
+| dept_name | varchar(20)  | YES  |     | NULL    |       |
+| tot_cred  | decimal(3,0) | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.11 sec)
+
+mysql> SELECT * FROM student; # retrieve all information from student table, query 03
++-------+----------+------------+----------+
+| ID    | name     | dept_name  | tot_cred |
++-------+----------+------------+----------+
+| 00128 | Zhang    | Comp. Sci. |      102 |
+| 12345 | Shankar  | Comp. Sci. |       32 |
+| 19991 | Brandt   | History    |       80 |
+| 23121 | Chavez   | Finance    |      110 |
+| 44553 | Peltier  | Physics    |       56 |
+| 45678 | Levy     | Physics    |       46 |
+| 54321 | Williams | Comp. Sci. |       54 |
+| 55739 | Sanchez  | Music      |       38 |
+| 70557 | Snow     | Physics    |        0 |
+| 76543 | Brown    | Comp. Sci. |       58 |
+| 76653 | Aoi      | Elec. Eng. |       60 |
+| 98765 | Bourikas | Elec. Eng. |       98 |
+| 98988 | Tanaka   | Biology    |      120 |
++-------+----------+------------+----------+
+13 rows in set (0.00 sec)
+
+mysql> INSERT into student values ('45678', 'John', 'Hisory', '67'); #add an additional info., guery 04
+ERROR 1062 (23000): Duplicate entry '45678' for key 'PRIMARY'
+
+
+mysql> INSERT into student values ('34322', 'Alex', 'Music', '34'); #add an additional info, query  04
+Query OK, 1 row affected (0.10 sec)
+
+mysql> SELECT name, dept_name 
+    -> FROM student; #display the name and department name of each student, query 05
++----------+------------+
+| name     | dept_name  |
++----------+------------+
+| Zhang    | Comp. Sci. |
+| Shankar  | Comp. Sci. |
+| Brandt   | History    |
+| Chavez   | Finance    |
+| Alex     | Music      |
+| Peltier  | Physics    |
+| Levy     | Physics    |
+| Williams | Comp. Sci. |
+| Sanchez  | Music      |
+| Snow     | Physics    |
+| Brown    | Comp. Sci. |
+| Aoi      | Elec. Eng. |
+| Bourikas | Elec. Eng. |
+| Tanaka   | Biology    |
++----------+------------+
+14 rows in set (0.01 sec)
+
+
+
+
+
+
+
