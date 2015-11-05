@@ -1,0 +1,1721 @@
+--------------
+#Evgeniya Bautina
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP DATABASE IF EXISTS bookstore
+--------------
+
+Query OK, 9 rows affected (0.01 sec)
+
+--------------
+/* This script creates the database bookstore */
+
+CREATE DATABASE IF NOT EXISTS bookstore
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* This script creates the database tables */
+
+/* drop the tables */
+DROP TABLE IF EXISTS BOOKAUTHOR
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS AUTHOR
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS ORDERDETAILS
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS ORDERS
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS CUSTOMERS
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS BOOKS
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS CATEGORIES
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS PUBLISHER
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+DROP TABLE IF EXISTS EMPLOYEES
+--------------
+
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+--------------
+/* create the table customers */
+CREATE TABLE CUSTOMERS
+(CustomerID INT(4), 
+ LastName VARCHAR(10) NOT NULL,
+ FirstName VARCHAR(10) NOT NULL,
+ Address VARCHAR(20),
+ City VARCHAR(12),
+ State VARCHAR(2),
+ Zip VARCHAR(5),
+ CONSTRAINT customers_customer_pk PRIMARY KEY(customerID))ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.02 sec)
+
+--------------
+ 
+/* create the table orders */
+CREATE TABLE ORDERS
+(OrderID INT(4), 
+ CustomerID INT(4), 
+ OrderDate datetime,
+ ShipDate datetime, 
+ ShipStreet VARCHAR(18), 
+ ShipCity VARCHAR(15), 
+ ShipState VARCHAR(2), 
+ ShipZip VARCHAR(5),
+ ShipCost DECIMAL(4,2),
+ CONSTRAINT orders_order_pk PRIMARY KEY(OrderID),
+ CONSTRAINT orders_customer_fk FOREIGN KEY (customerID)
+  REFERENCES CUSTOMERS(customerID))ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+    
+/*  create the table publisher */
+CREATE TABLE PUBLISHER
+(publisherID INT(2), 
+ Name VARCHAR(23), 
+ Contact VARCHAR(15), 
+ phone VARCHAR(12),
+ CONSTRAINT publisher_pubid_pk PRIMARY KEY(publisherID))ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+  
+/* create the table author */
+ CREATE TABLE AUTHOR
+(AuthorID  VARCHAR(4), 
+ LastName  VARCHAR(10), 
+ FirstName VARCHAR(10),
+  CONSTRAINT author_authorid_pk PRIMARY KEY(authorID))ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+  
+/* create the table categories */
+CREATE TABLE CATEGORIES(
+   catgID           VARCHAR(5)      NOT NULL
+ , catgDesc         VARCHAR(25)     NOT NULL  
+ , CONSTRAINT bk_categories_pk PRIMARY KEY(catgID) 
+ , CONSTRAINT bk_category_descr UNIQUE (catgDesc)
+)ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+/* create the table books */
+CREATE TABLE BOOKS 
+(ISBN VARCHAR(10), 
+ Title VARCHAR(30), 
+ PubDate DATE, 
+ PublisherID INT(2), 
+ Cost DECIMAL (5,2), 
+ Price DECIMAL(5,2), 
+ Discount DECIMAL(4,2),
+ CatgID VARCHAR(12),
+ CONSTRAINT books_isbn_pk PRIMARY KEY(isbn),
+ CONSTRAINT books_pubid_fk FOREIGN KEY (publisherID)
+ REFERENCES PUBLISHER (publisherID),
+ CONSTRAINT books_catid_fk FOREIGN KEY (catgID)
+ REFERENCES categories(catgID))ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+	
+/* create the table order details */
+CREATE TABLE ORDERDETAILS
+  (OrderID INT(4),
+   Item 	INT(2),
+   ISBN 	VARCHAR(10),
+   Quantity INT(3) NOT NULL CHECK (quantity > 0), 
+   paidEach DECIMAL(5,2) NOT NULL,
+   CONSTRAINT ORDERDETAILS_pk PRIMARY KEY (orderID, Item),
+   CONSTRAINT ORDERDETAILS_order_fk FOREIGN KEY (orderID)
+             REFERENCES ORDERS (orderID) ,
+   CONSTRAINT ORDERDETAILS_isbn_fk FOREIGN KEY (isbn)
+             REFERENCES BOOKS (isbn) )
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+			 
+/* create the table bookauthor */
+CREATE TABLE BOOKAUTHOR 
+(ISBN 	VARCHAR(10), 
+ authorID  VARCHAR(4),
+ CONSTRAINT bookauthor_pk PRIMARY KEY (isbn, authorID),
+ CONSTRAINT bookauthor_isbn_fk FOREIGN KEY (isbn)
+             REFERENCES BOOKS (isbn),
+ CONSTRAINT bookauthor_authorid_fk FOREIGN KEY (authorID)
+             REFERENCES AUTHOR (authorID))
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+			 
+/* create the table employees */			 
+CREATE TABLE Employees (
+ EmployeeID        INT(4),
+ LastName          VARCHAR(20),
+ FirstName         VARCHAR(15),
+ Job               VARCHAR(9),
+ HireDate          DATETIME,
+ DeptID            INT(2) NOT NULL,
+ Salary            DECIMAL(7,2),
+ MgrID             INT(4),
+ CONSTRAINT employees_empid_PK PRIMARY KEY (employeeID))
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+/* This script populates the database tables with sample data */
+
+/* insert sample data into customers table */
+
+INSERT INTO customers
+VALUES (1001, 'MORALES', 'BONITA', 'P.O. BOX 651', 'EASTPOINT', 'FL', '32328')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers
+VALUES (1002, 'THOMPSON', 'RYAN', 'P.O. BOX 9835', 'SANTA MONICA', 'CA', '90404')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1003, 'SMITH', 'LEILA', 'P.O. BOX 66', 'TALLAHASSEE', 'FL', '32306')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1004, 'PIERSON', 'THOMAS', '69821 SOUTH AVENUE', 'BOISE', 'ID', '83707')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1005, 'GIRARD', 'CINDY', 'P.O. BOX 851', 'SEATTLE', 'WA', '98115')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1006, 'CRUZ', 'MESHIA', '82 DIRT ROAD', 'ALBANY', 'NY', '12211')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1007, 'GIANA', 'TAMMY', '9153 MAIN STREET', 'AUSTIN', 'TX', '78710')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1008, 'JONES', 'KENNETH', 'P.O. BOX 137', 'CHEYENNE', 'WY', '82003')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1009, 'PEREZ', 'JORGE', 'P.O. BOX 8564', 'BURBANK', 'CA', '91510')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1010, 'LUCAS', 'JAKE', '114 EAST SAVANNAH', 'ATLANTA', 'GA', '30314')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1011, 'MCGOVERN', 'REESE', 'P.O. BOX 18', 'CHICAGO', 'IL', '60606')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1012, 'MCKENZIE', 'WILLIAM', 'P.O. BOX 971', 'BOSTON', 'MA', '02110')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1013, 'NGUYEN', 'NICHOLAS', '357 WHITE EAGLE AVE.', 'CLERMONT', 'FL', '34711')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1014, 'LEE', 'JASMINE', 'P.O. BOX 2947', 'CODY', 'WY', '82414')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1015, 'SCHELL', 'STEVE', 'P.O. BOX 677', 'MIAMI', 'FL', '33111')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1016, 'DAUM', 'MICHELL', '9851231 LONG ROAD', 'BURBANK', 'CA', '91508')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1017, 'NELSON', 'BECCA', 'P.O. BOX 563', 'KALMAZOO', 'MI', '49006')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1018, 'MONTIASA', 'GREG', '1008 GRAND AVENUE', 'MACON', 'GA', '31206')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1019, 'SMITH', 'JENNIFER', 'P.O. BOX 1151', 'MORRISTOWN', 'NJ', '07962')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO customers 
+VALUES (1020, 'FALAH', 'KENNETH', 'P.O. BOX 335', 'TRENTON', 'NJ', '08607')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* insert sample data into orders table */
+
+INSERT INTO orders 
+VALUES (1000,1005,'2009-03-09','2009-03-30','1201 ORANGE AVE', 'SEATTLE', 'WA', '98114' , 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1001,1010,'2009-03-09','2009-04-01', '114 EAST SAVANNAH', 'ATLANTA', 'GA', '30314', 3.0)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1002,1011,'2009-03-31','2009-04-01','58 TILA CIRCLE', 'CHICAGO', 'IL', '60605', 3.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1003,1001,'2009-04-01','2009-04-01','958 MAGNOLIA LANE', 'EASTPOINT', 'FL', '32328', 4.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1004,1020,'2009-04-01','2009-04-05','561 ROUNDABOUT WAY', 'TRENTON', 'NJ', '08601', NULL)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1005,1018,'2009-01-04','2009-04-09', '1008 GRAND AVENUE', 'MACON', 'GA', '31206', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1006,1003,'2009-04-01','2009-04-02','558A CAPITOL HWY.', 'TALLAHASSEE', 'FL', '32307', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1007,1007,'2009-04-02','2009-04-04', '9153 MAIN STREET', 'AUSTIN', 'TX', '78710', 7.00)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1008,1004,'2009-04-02','2009-04-03', '69821 SOUTH AVENUE', 'BOISE', 'ID', '83707', 3.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1009,1005,'2009-04-03','2009-04-05','9 LIGHTENING RD.', 'SEATTLE', 'WA', '98110', NULL)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1010,1019,'2009-04-03','2009-04-04','384 WRONG WAY HOME', 'MORRISTOWN', 'NJ', '07960', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1011,1010,'2009-04-03','2009-04-05', '102 WEST LAFAYETTE', 'ATLANTA', 'GA', '30311', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1012,1017,'2009-04-03',NULL,'1295 WINDY AVENUE', 'KALMAZOO', 'MI', '49002', 6.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1013,1014,'2009-04-03','2009-04-04','7618 MOUNTAIN RD.', 'CODY', 'WY', '82414', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1014,1007,'2009-04-04','2009-04-05', '9153 MAIN STREET', 'AUSTIN', 'TX', '78710', 3.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1015,1020,'2009-04-04',NULL,'557 GLITTER ST.', 'TRENTON', 'NJ', '08606', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1016,1003,'2009-04-04',NULL,'9901 SEMINOLE WAY', 'TALLAHASSEE', 'FL', '32307', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1017,1015,'2009-04-04','2009-04-05','887 HOT ASPHALT ST', 'MIAMI', 'FL', '33112', 3.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1018,1001,'2009-04-05',NULL,'95812 HIGHWAY 98', 'EASTPOINT', 'FL', '32328', NULL)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1019,1018,'2009-04-05',NULL, '1008 GRAND AVENUE', 'MACON', 'GA', '31206', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO orders 
+VALUES (1020,1008,'2009-04-05-04',NULL,'195 JAMISON LANE', 'CHEYENNE', 'WY', '82003', 2.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* insert sample data into publisher table */
+
+INSERT INTO publisher 
+VALUES(1,'PRINTING IS US','TOMMIE SEYMOUR','000-714-8321')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO publisher 
+VALUES(2,'PUBLISH OUR WAY','JANE TOMLIN','010-410-0010')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO publisher 
+VALUES(3,'AMERICAN PUBLISHING','DAVID DAVIDSON','800-555-1211')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO publisher 
+VALUES(4,'READING MATERIALS INC.','RENEE SMITH','800-555-9743')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO publisher 
+VALUES(5,'REED-N-RITE','SEBASTIAN JONES','800-555-8284')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+ 
+/* insert sample data into author table */
+ 
+INSERT INTO author 
+VALUES ('S100','SMITH', 'SAM')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('J100','JONES','JANICE')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('A100','AUSTIN','JAMES')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('M100','MARTINEZ','SHEILA')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('K100','KZOCHSKY','TAMARA')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('P100','PORTER','LISA')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('A105','ADAMS','JUAN')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('B100','BAKER','JACK')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('P105','PETERSON','TINA')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('W100','WHITE','WILLIAM')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('W105','WHITE','LISA')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('R100','ROBINSON','ROBERT')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('F100','FIELDS','OSCAR')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO author 
+VALUES ('W110','WILKINSON','ANTHONY')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+ 
+/* insert sample data into categoties table */
+
+INSERT INTO CATEGORIES  VALUES  (1234, 'FITNESS')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1774, 'FAMILY LIFE')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1200, 'CHILDREN')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1877, 'COMPUTER')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1269, 'COOKING')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1483, 'BUSINESS')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1619, 'SELF HELP')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CATEGORIES  VALUES  (1525, 'LITERATURE')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* insert sample data into bookstable */
+
+INSERT INTO BOOKS 
+VALUES ('1059831198','BODYBUILD IN 10 MINUTES A DAY','21-01-05',4,18.75,30.95, NULL, 1234)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('0401140733','REVENGE OF MICKEY','14-12-05',1,14.20,22.00, NULL, 1774)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('4981341710','BUILDING A CAR WITH TOOTHPICKS','18-03-06',2,37.80,59.95, 3.00, 1200)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('8843172113','DATABASE IMPLEMENTATION','04-06-03',3,31.40,55.95, NULL, 1877)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('3437212490','COOKING WITH MUSHROOMS','28-02-04',4,12.50,19.95, NULL, 1269)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('3957136468','HOLY GRAIL OF ORACLE','31-12-05',3,47.25,75.95, 3.80, 1877)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('1915762492','HANDCRANKED COMPUTERS','21-01-05',3,21.80,25.00, NULL, 1877)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('9959789321','E-BUSINESS THE EASY WAY','01-03-06',2,37.90,54.50, NULL, 1483)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('2491748320','PAINLESS CHILD-REARING','17-07-04',5,48.00,89.95, 4.50, 1774)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('0299282519','THE WOK WAY TO COOK','11-09-04',4,19.00,28.75, NULL, 1269)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('8117949391','BIG BEAR AND LITTLE DOVE','08-11-05',5,5.32,8.95, NULL, 1200)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('0132149871','HOW TO GET FASTER PIZZA','11-11-06',4,17.85,29.95, 1.50, 1619)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('9247381001','HOW TO MANAGE THE MANAGER','09-05-03',1,15.40,31.95, NULL,  1483)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO BOOKS 
+VALUES ('2147428890','SHORTEST POEMS','01-05-05',5,21.85,39.95, NULL, 1525)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* insert sample data into orderdetails table */
+
+INSERT INTO ORDERDETAILS 
+VALUES (1000,1,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1001,1,'9247381001',1,31.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1001,2,'2491748320',1,85.45)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1002,1,'8843172113',2,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1003,1,'8843172113',1,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1003,2,'1059831198',1,30.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1003,3,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1004,1,'2491748320',2,85.45)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1005,1,'2147428890',1,39.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1006,1,'9959789321',1,54.50)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1007,1,'3957136468',3,72.15)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1007,2,'9959789321',1,54.50)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1007,3,'8117949391',1,8.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1007,4,'8843172113',1,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1008,1,'3437212490',2,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1009,1,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1009,2,'0401140733',1,22.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1010,1,'8843172113',1,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1011,1,'2491748320',1,85.45)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1012,1,'8117949391',1,8.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1012,2,'1915762492',2,25.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1012,3,'2491748320',1,85.45)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1012,4,'0401140733',1,22.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1013,1,'8843172113',1,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1014,1,'0401140733',2,22.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1015,1,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1016,1,'2491748320',1,85.45)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1017,1,'8117949391',2,8.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1018,1,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1018,2,'8843172113',1,55.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1019,1,'0401140733',1,22.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ORDERDETAILS 
+VALUES (1020,1,'3437212490',1,19.95)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+ 
+/* insert sample data into bookauthor table */
+
+INSERT INTO bookauthor 
+VALUES ('1059831198','S100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('1059831198','P100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('0401140733','J100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('4981341710','K100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('8843172113','P105')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('8843172113','A100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('8843172113','A105')
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('3437212490','B100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('3957136468','A100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('1915762492','W100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('1915762492','W105')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('9959789321','J100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('2491748320','R100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('2491748320','F100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('2491748320','B100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('0299282519','S100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('8117949391','R100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('0132149871','S100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('9247381001','W100')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO bookauthor 
+VALUES ('2147428890','W105')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* insert sample data into employeestable */ 
+
+INSERT INTO employees VALUES (7839,'KING','BEN', 'GTECH2','1991-11-17',10,6000,NULL)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO employees VALUES (8888,'JONES','LARRY','MTech2','1998-11-17',10,4200,7839)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO employees VALUES (7344,'SMITH','SAM','GTech1','1995-11-17',20,4900,7839)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO employees VALUES (7355,'POTTS','JIM','GTech1','1995-11-17',20,4900,7839)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO employees VALUES (8844,'STUART','SUE','MTech1','1998-11-17',10,3700,8888)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM customers WHERE CustomerID<>1002
+--------------
+
++------------+----------+-----------+----------------------+-------------+-------+-------+
+| CustomerID | LastName | FirstName | Address              | City        | State | Zip   |
++------------+----------+-----------+----------------------+-------------+-------+-------+
+|       1001 | MORALES  | BONITA    | P.O. BOX 651         | EASTPOINT   | FL    | 32328 |
+|       1003 | SMITH    | LEILA     | P.O. BOX 66          | TALLAHASSEE | FL    | 32306 |
+|       1004 | PIERSON  | THOMAS    | 69821 SOUTH AVENUE   | BOISE       | ID    | 83707 |
+|       1005 | GIRARD   | CINDY     | P.O. BOX 851         | SEATTLE     | WA    | 98115 |
+|       1006 | CRUZ     | MESHIA    | 82 DIRT ROAD         | ALBANY      | NY    | 12211 |
+|       1007 | GIANA    | TAMMY     | 9153 MAIN STREET     | AUSTIN      | TX    | 78710 |
+|       1008 | JONES    | KENNETH   | P.O. BOX 137         | CHEYENNE    | WY    | 82003 |
+|       1009 | PEREZ    | JORGE     | P.O. BOX 8564        | BURBANK     | CA    | 91510 |
+|       1010 | LUCAS    | JAKE      | 114 EAST SAVANNAH    | ATLANTA     | GA    | 30314 |
+|       1011 | MCGOVERN | REESE     | P.O. BOX 18          | CHICAGO     | IL    | 60606 |
+|       1012 | MCKENZIE | WILLIAM   | P.O. BOX 971         | BOSTON      | MA    | 02110 |
+|       1013 | NGUYEN   | NICHOLAS  | 357 WHITE EAGLE AVE. | CLERMONT    | FL    | 34711 |
+|       1014 | LEE      | JASMINE   | P.O. BOX 2947        | CODY        | WY    | 82414 |
+|       1015 | SCHELL   | STEVE     | P.O. BOX 677         | MIAMI       | FL    | 33111 |
+|       1016 | DAUM     | MICHELL   | 9851231 LONG ROAD    | BURBANK     | CA    | 91508 |
+|       1017 | NELSON   | BECCA     | P.O. BOX 563         | KALMAZOO    | MI    | 49006 |
+|       1018 | MONTIASA | GREG      | 1008 GRAND AVENUE    | MACON       | GA    | 31206 |
+|       1019 | SMITH    | JENNIFER  | P.O. BOX 1151        | MORRISTOWN  | NJ    | 07962 |
+|       1020 | FALAH    | KENNETH   | P.O. BOX 335         | TRENTON     | NJ    | 08607 |
++------------+----------+-----------+----------------------+-------------+-------+-------+
+19 rows in set (0.00 sec)
+
+--------------
+#query 02
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ISBN, Title FROM books WHERE PublisherID > 3
+--------------
+
++------------+-------------------------------+
+| ISBN       | Title                         |
++------------+-------------------------------+
+| 0132149871 | HOW TO GET FASTER PIZZA       |
+| 0299282519 | THE WOK WAY TO COOK           |
+| 1059831198 | BODYBUILD IN 10 MINUTES A DAY |
+| 2147428890 | SHORTEST POEMS                |
+| 2491748320 | PAINLESS CHILD-REARING        |
+| 3437212490 | COOKING WITH MUSHROOMS        |
+| 8117949391 | BIG BEAR AND LITTLE DOVE      |
++------------+-------------------------------+
+7 rows in set (0.00 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM customers WHERE CustomerID in (1003,1004, 1005)
+--------------
+
++------------+----------+-----------+--------------------+-------------+-------+-------+
+| CustomerID | LastName | FirstName | Address            | City        | State | Zip   |
++------------+----------+-----------+--------------------+-------------+-------+-------+
+|       1003 | SMITH    | LEILA     | P.O. BOX 66        | TALLAHASSEE | FL    | 32306 |
+|       1004 | PIERSON  | THOMAS    | 69821 SOUTH AVENUE | BOISE       | ID    | 83707 |
+|       1005 | GIRARD   | CINDY     | P.O. BOX 851       | SEATTLE     | WA    | 98115 |
++------------+----------+-----------+--------------------+-------------+-------+-------+
+3 rows in set (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT CustomerID, LastName, FirstName, State FROM customers WHERE State IN ('GA', 'NJ') ORDER BY LastName ASC
+--------------
+
++------------+----------+-----------+-------+
+| CustomerID | LastName | FirstName | State |
++------------+----------+-----------+-------+
+|       1020 | FALAH    | KENNETH   | NJ    |
+|       1010 | LUCAS    | JAKE      | GA    |
+|       1018 | MONTIASA | GREG      | GA    |
+|       1019 | SMITH    | JENNIFER  | NJ    |
++------------+----------+-----------+-------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 05
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM customers WHERE CustomerID BETWEEN 1002 AND 1005
+--------------
+
++------------+----------+-----------+--------------------+--------------+-------+-------+
+| CustomerID | LastName | FirstName | Address            | City         | State | Zip   |
++------------+----------+-----------+--------------------+--------------+-------+-------+
+|       1002 | THOMPSON | RYAN      | P.O. BOX 9835      | SANTA MONICA | CA    | 90404 |
+|       1003 | SMITH    | LEILA     | P.O. BOX 66        | TALLAHASSEE  | FL    | 32306 |
+|       1004 | PIERSON  | THOMAS    | 69821 SOUTH AVENUE | BOISE        | ID    | 83707 |
+|       1005 | GIRARD   | CINDY     | P.O. BOX 851       | SEATTLE      | WA    | 98115 |
++------------+----------+-----------+--------------------+--------------+-------+-------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 06
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM Employees WHERE (HireDate > '1970-01-01') AND (EmployeeID>7344)
+--------------
+
++------------+----------+-----------+--------+---------------------+--------+---------+-------+
+| EmployeeID | LastName | FirstName | Job    | HireDate            | DeptID | Salary  | MgrID |
++------------+----------+-----------+--------+---------------------+--------+---------+-------+
+|       7839 | KING     | BEN       | GTECH2 | 1991-11-17 00:00:00 |     10 | 6000.00 |  NULL |
+|       8888 | JONES    | LARRY     | MTech2 | 1998-11-17 00:00:00 |     10 | 4200.00 |  7839 |
+|       7355 | POTTS    | JIM       | GTech1 | 1995-11-17 00:00:00 |     20 | 4900.00 |  7839 |
+|       8844 | STUART   | SUE       | MTech1 | 1998-11-17 00:00:00 |     10 | 3700.00 |  8888 |
++------------+----------+-----------+--------+---------------------+--------+---------+-------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 07
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT FirstName, LastName, Salary FROM Employees WHERE LastName LIKE 'S%' AND (Salary NOT IN (4900.00,4200.00,6000.00))
+--------------
+
++-----------+----------+---------+
+| FirstName | LastName | Salary  |
++-----------+----------+---------+
+| SUE       | STUART   | 3700.00 |
++-----------+----------+---------+
+1 row in set (0.00 sec)
+
+--------------
+#query 08
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM customers WHERE FirstName LIKE 'J%'
+--------------
+
++------------+----------+-----------+-------------------+------------+-------+-------+
+| CustomerID | LastName | FirstName | Address           | City       | State | Zip   |
++------------+----------+-----------+-------------------+------------+-------+-------+
+|       1009 | PEREZ    | JORGE     | P.O. BOX 8564     | BURBANK    | CA    | 91510 |
+|       1010 | LUCAS    | JAKE      | 114 EAST SAVANNAH | ATLANTA    | GA    | 30314 |
+|       1014 | LEE      | JASMINE   | P.O. BOX 2947     | CODY       | WY    | 82414 |
+|       1019 | SMITH    | JENNIFER  | P.O. BOX 1151     | MORRISTOWN | NJ    | 07962 |
++------------+----------+-----------+-------------------+------------+-------+-------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 09
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT FirstName, LastName FROM AUTHOR WHERE LastName LIKE '%IN%' ORDER BY LastName, FirstName
+--------------
+
++-----------+-----------+
+| FirstName | LastName  |
++-----------+-----------+
+| JAMES     | AUSTIN    |
+| SHEILA    | MARTINEZ  |
+| ROBERT    | ROBINSON  |
+| ANTHONY   | WILKINSON |
++-----------+-----------+
+4 rows in set (0.00 sec)
+
+--------------
+#query 10
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT ISBN, Title FROM books WHERE Title LIKE '_A_N%' ORDER BY Title DESC
+--------------
+
++------------+------------------------+
+| ISBN       | Title                  |
++------------+------------------------+
+| 2491748320 | PAINLESS CHILD-REARING |
++------------+------------------------+
+1 row in set (0.00 sec)
+
+--------------
+#query 11
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT Title, PubDate FROM books WHERE YEAR(PubDate)='2011'
+--------------
+
++-------------------------+------------+
+| Title                   | PubDate    |
++-------------------------+------------+
+| HOW TO GET FASTER PIZZA | 2011-11-06 |
+| THE WOK WAY TO COOK     | 2011-09-04 |
++-------------------------+------------+
+2 rows in set (0.00 sec)
+
+--------------
+#query 12
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT LastName, FirstName, Address FROM Customers WHERE Address LIKE '%AVENUE'
+--------------
+
++----------+-----------+--------------------+
+| LastName | FirstName | Address            |
++----------+-----------+--------------------+
+| PIERSON  | THOMAS    | 69821 SOUTH AVENUE |
+| MONTIASA | GREG      | 1008 GRAND AVENUE  |
++----------+-----------+--------------------+
+2 rows in set (0.00 sec)
+
+--------------
+#ART COURSE DATABASE
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP DATABASE ArtCourse
+--------------
+
+Query OK, 3 rows affected (0.00 sec)
+
+--------------
+#query 01
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE DATABASE ArtCourse
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+ 
+#query 02
+CREATE TABLE CUSTOMER (
+	CustomerNumber INT NOT NULL AUTO_INCREMENT,
+	CustomerLastName VARCHAR(255),
+	CustomerFirstName VARCHAR(255),
+	Phone VARCHAR(12),
+	PRIMARY KEY (CustomerNumber)) ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.02 sec)
+
+--------------
+CREATE TABLE COURSE (
+	CourseNumber INT NOT NULL AUTO_INCREMENT,
+	Course VARCHAR(255),
+	CourseDate DATE,
+	Fee DOUBLE, PRIMARY KEY (CourseNumber)) ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE TABLE ENROLLMENT(
+	CustomerNumber INT NOT NULL,
+	CourseNumber INT NOT NULL,
+	AmountPaid DOUBLE,
+	FOREIGN KEY (CustomerNumber) REFERENCES CUSTOMER(CustomerNumber),
+	FOREIGN KEY (CourseNumber) REFERENCES COURSE(CourseNumber) ON DELETE CASCADE
+	) ENGINE = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+#query 03
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* ****************************************************************************/
+/*																			 */
+/*	Art-Course-Database Create Tables										 */
+/*																			 */
+/* ***************************************************************************/
+/* ****   CUSTOMER DATA   ****************************************************/
+
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Johnson', 'Ariel','206-567-1234')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Green', 'Robin', '425-678-8765')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Jackson', 'Charles','306-789-3456')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Pearson', 'Jeffery', '206-567-2345')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Sears', 'Miguel','360-789-4567')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Kyle', 'Leah', '425-678-7654')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO CUSTOMER (CustomerLastName, CustomerFirstName, Phone)
+	VALUES('Myers', 'Lynda', '360-789-5678')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* ****   COURSE DATA   **********************************************************/
+
+INSERT INTO COURSE (Course, CourseDate, Fee)
+	VALUES('Adv Pastels', '2013-10-01', 500.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COURSE (Course, CourseDate, Fee)
+	VALUES('Beg Oils', '2013-09-15', 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COURSE (Course, CourseDate, Fee)
+	VALUES('Int Pastels', '2013-03-15', 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COURSE (Course, CourseDate, Fee)
+	VALUES('Beg Oils', '2013-10-15', 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COURSE (Course, CourseDate, Fee)
+	VALUES('Adv Pastels', '2013-11-15', 500.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* ****   ENROLLMENT DATA   ******************************************************/
+
+INSERT INTO ENROLLMENT VALUES(1, 1, 250.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(1, 3, 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(2, 2, 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(3, 1, 500.00)
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(4, 1, 500.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(5, 2, 350.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(6, 5, 250.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO ENROLLMENT VALUES(7, 4, 0.00)
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+/* *******************************************************************************/
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+#query 04
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM CUSTOMER
+--------------
+
++----------------+------------------+-------------------+--------------+
+| CustomerNumber | CustomerLastName | CustomerFirstName | Phone        |
++----------------+------------------+-------------------+--------------+
+|              1 | Johnson          | Ariel             | 206-567-1234 |
+|              2 | Green            | Robin             | 425-678-8765 |
+|              3 | Jackson          | Charles           | 306-789-3456 |
+|              4 | Pearson          | Jeffery           | 206-567-2345 |
+|              5 | Sears            | Miguel            | 360-789-4567 |
+|              6 | Kyle             | Leah              | 425-678-7654 |
+|              7 | Myers            | Lynda             | 360-789-5678 |
++----------------+------------------+-------------------+--------------+
+7 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM COURSE
+--------------
+
++--------------+-------------+------------+------+
+| CourseNumber | Course      | CourseDate | Fee  |
++--------------+-------------+------------+------+
+|            1 | Adv Pastels | 2013-10-01 |  500 |
+|            2 | Beg Oils    | 2013-09-15 |  350 |
+|            3 | Int Pastels | 2013-03-15 |  350 |
+|            4 | Beg Oils    | 2013-10-15 |  350 |
+|            5 | Adv Pastels | 2013-11-15 |  500 |
++--------------+-------------+------------+------+
+5 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM ENROLLMENT
+--------------
+
++----------------+--------------+------------+
+| CustomerNumber | CourseNumber | AmountPaid |
++----------------+--------------+------------+
+|              1 |            1 |        250 |
+|              1 |            3 |        350 |
+|              2 |            2 |        350 |
+|              3 |            1 |        500 |
+|              4 |            1 |        500 |
+|              5 |            2 |        350 |
+|              6 |            5 |        250 |
+|              7 |            4 |          0 |
++----------------+--------------+------------+
+8 rows in set (0.00 sec)
+
+Bye
